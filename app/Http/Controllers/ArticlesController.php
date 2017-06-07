@@ -10,8 +10,8 @@ class ArticlesController extends Controller
     //
     public function index(){
       //$articles = DB::table(articles)->get();
-    //$articles = Article::all();
-    //return view('blog.index');
-    echo __DIR__;
+    $articles = Article::all();
+    return view('blog.index');
+
     }
 }
