@@ -13,6 +13,4 @@
 
 Route::get('/', 'PagesController@index');
 
-Route::get('/contacts', 'PagesController@contacts');
-
-Route::get('/blog', 'ArticlesController@index');
+Route::resource('articles', 'Cms\ArticlesController');
