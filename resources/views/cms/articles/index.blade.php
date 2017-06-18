@@ -13,11 +13,11 @@
 		<table class="table">
 			<thead class="text-primary">
 				<tr>
-					<th class="text-center">id</th>
-					<th class="text-center">title</th>
-					<th class="text-center">seen</th>
-					<th class="text-center">active</th>
-					<th class="text-center">actions</th>
+					<th>id</th>
+					<th>title</th>
+					<th>seen</th>
+					<th>active</th>
+					<th class="text-right">actions</th>
 				</tr>
 			</thead>
 			<tbody>

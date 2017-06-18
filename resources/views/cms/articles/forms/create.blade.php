@@ -2,7 +2,7 @@
     {{ Form::label('title', 'Title',  array('class' => 'control-label')) }}
     {{ Form::text('title', Input::old('title'), array('class' => 'form-control')) }}
 </div>
-<div class="form-group">
+<div class="form-group is-empty">
    {{ Form::label('summary', 'Summary') }}
    {{ Form::text('summary', Input::old('summary'), array('class' => 'form-control')) }}
 </div>

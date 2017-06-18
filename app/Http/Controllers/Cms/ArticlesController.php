@@ -53,10 +53,8 @@ class ArticlesController extends Controller
         $article->slug = str_slug($article->title);
         $article->summary = $request->summary;
         $article->content = $request->content;
-        $article->seen =  $request->seen;
-        if ($article->seen == null) $article->seen = false;
-        $article->active = $request->active;
-        if ($article->active == null) $article->active = false;
+        $article->seen =  $request->input('seen',0);
+        $article->active = $request->input('active',0);
         $article->seo_title = $request->seo_title;
         $article->seo_key = $request->seo_key;
         $article->seo_desc = $request->seo_desc;

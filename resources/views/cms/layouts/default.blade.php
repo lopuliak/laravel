@@ -17,10 +17,18 @@
 	    	</div>
 		</div>
 	    <div class="main-panel">
-
 	        <div class="content">
 	            <div class="container-fluid">
 	                <div class="row">
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{!! $error !!}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
                         @yield('content')
 	                </div>
 	            </div>
@@ -29,7 +37,6 @@
 	    </div>
 	</div>
 </body>
-	<!--   Core JS Files   -->
 	<script src="/js/jquery-3.1.0.min.js" type="text/javascript"></script>
 	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="/js/material.min.js" type="text/javascript"></script>
