@@ -26,7 +26,6 @@ class UsersController extends Controller
      */
     public function create()
     {
-
         return view('cms.users.create');
     }
     /**
@@ -37,7 +36,6 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-
         $user = User::create($request->all());
         return redirect()->route('users.index');
     }

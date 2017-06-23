@@ -7,7 +7,11 @@
 			<h4 class="title">Articles</h4>
 		</div>
 	@if($articles->count() === 0)
-        <div class="well text-center">No articles found</div>
+	<div class="card-content table-responsive">
+		<div class="alert alert-warning text-center">
+			<b>No articles found</b>
+		</div>
+	</div>
     @else
 	<div class="card-content table-responsive">
 		<table class="table">
