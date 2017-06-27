@@ -38,6 +38,17 @@
     {{ Form::label('seo_desc', 'Seo seo_desc') }}
     {{ Form::text('seo_desc', Input::old('seo_desc'), array('class' => 'form-control')) }}
 </div>
+
+<div class="form-group is-empty">
+        {{ Form::label('category_id', 'Select Category:') }}
+        {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group is-empty">
+    {!! Form::label('tag_list', 'Tags:') !!}
+    {!! Form::select('tag_list[]', $tags, $article->tags, ['id' => 'tag_list', 'class' => 'form-control', 'multiple', 'style' => 'width: 100%']) !!}
+</div>
+
 <div class="form-group text-right">
     <a href="{!! url('/articles') !!}" class="btn btn-default raw-left">Cancel</a>
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

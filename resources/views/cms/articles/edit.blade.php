@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 {!! Form::model($article, ['route' => ['articles.update', $article->id], 'method' => 'patch', 'class' => 'edit']) !!}
-                @include('cms.articles.forms.create')
+                @include('cms.articles.forms.edit_article')
                 {!! Form::close() !!}
             </div>
         </div>

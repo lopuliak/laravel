@@ -14,7 +14,7 @@ class InserCategoryIdIntoArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->integer('category_id')->nullable()->after('slug')->unsigned();
+            $table->integer('category_id')->unsigned();
         });
     }
 

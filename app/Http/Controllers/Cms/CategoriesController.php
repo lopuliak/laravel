@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 class CategoriesController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

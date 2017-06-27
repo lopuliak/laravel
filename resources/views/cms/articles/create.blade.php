@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 {!! Form::open(['route' => 'articles.store', 'class' => 'add']) !!}
-                @include('cms.articles.forms.create')
+                @include('cms.articles.forms.create_article')
                 {!! Form::close() !!}
             </div>
         </div>

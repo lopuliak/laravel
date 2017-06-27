@@ -1,13 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Cms;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Article;
+use App\Category;
+use App\Tag;
+
 class ArticlesController extends Controller
 {
+    public function __construct()
+	{
+    	parent::__construct();
+
+    	//$this->middleware('acl');
+    	$this->breadcrumbs->addCrumb('Dashboard', 'cms');
+    	$this->breadcrumbs->addCrumb('Articles', 'articles');
+	}
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +27,14 @@ class ArticlesController extends Controller
     {
         //
         $articles = Article::all();
-
+        /*
+        $articles = Article::orderBy('created_at', 'desc')->simplePaginate(3);
     	return view('cms.articles.index')->with('articles', $articles);
+        $articles = Article::all();
+        */
+    	return view('cms.articles.index')
+        	->with('articles', $articles)->with('breadcrumbs', $this->breadcrumbs);
+
     }
 
     /**
@@ -29,7 +45,10 @@ class ArticlesController extends Controller
     public function create()
     {
         //
-        return view('cms.articles.create');
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::pluck('name', 'id');
+        return view('cms.articles.create')->with('categories', $categories)->with('tags', $tags);
+
     }
 
     /**
@@ -55,10 +74,12 @@ class ArticlesController extends Controller
         $article->content = $request->content;
         $article->seen =  $request->input('seen',0);
         $article->active = $request->input('active',0);
+        $article->category_id = $request->category_id;
         $article->seo_title = $request->seo_title;
         $article->seo_key = $request->seo_key;
         $article->seo_desc = $request->seo_desc;
         $article->save();
+        $article->tags()->sync($request->input('tag_list'), false);
         return redirect()->route('articles.index', $article->id);
     }
 
@@ -85,8 +106,11 @@ class ArticlesController extends Controller
     {
         //
         $article = Article::find($id);
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::pluck('name', 'id');
+
         // return the view and pass in the var we previously created
-        return view('cms.articles.edit')->withArticle($article);
+        return view('cms.articles.edit')->withArticle($article)->withCategories($categories)->withTags($tags);
     }
 
     /**
@@ -106,20 +130,21 @@ class ArticlesController extends Controller
               'summary'      => 'required',
               'content' => 'required'
           ));
-        $article = Article::find($id);
+        $article = Article::find($id);;
         $article->title = $request->input('title');
         $article->slug = str_slug($article->title);
 
         $article->summary = $request->input('summary');
         $article->content = $request->input('content');
-        $article->seen =  $request->input('seen');
-        if ($article->seen == null) $article->seen = false;
-        $article->active =  $request->input('active');
-        if ($article->active == null) $article->active = false;
+        $article->seen =  $request->input('seen',0);
+        $article->active =  $request->input('active',0);
+        $article->category_id = $request->input('category_id');
         $article->seo_title = $request->input('seo_title');
         $article->seo_key = $request->input('seo_key');
         $article->seo_desc = $request->input('seo_desc');
         $article->save();
+
+        $article->tags()->sync($request->input('tag_list'));
 
         // redirect with flash data to posts.show
         return redirect()->route('articles.show', $article->id);
