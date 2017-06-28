@@ -1,6 +1,5 @@
 @extends('cms.layouts.default')
 @section('content')
-{!! $breadcrumbs->render() !!}
 <div class="col-md-12">
 			<a href="{!! route('articles.create') !!}" class="btn btn-xs btn-success pull-right"><i class="material-icons">add</i>Add article</a>
 	<div class="card">

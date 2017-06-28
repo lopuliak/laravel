@@ -61,6 +61,9 @@ class TagsController extends Controller
     public function edit($id)
     {
         //
+        $tag = Tag::find($id);
+
+        return view('cms.tags.edit')->withTag($tag);
     }
     /**
      * Update the specified resource in storage.
@@ -72,6 +75,14 @@ class TagsController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+                $tag = Tag::find($id);
+                $this->validate($request, array(
+                        'name' => 'required|max:50',
+                    ));
+                $tag->name = $request->name;
+                $tag->save();
+                return redirect()->route('tags.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -82,5 +93,8 @@ class TagsController extends Controller
     public function destroy($id)
     {
         //
+        $tag = Tag::find($id);
+        $tag->delete();
+        return redirect()->route('tags.index');
     }
 }

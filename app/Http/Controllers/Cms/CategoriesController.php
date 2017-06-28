@@ -46,7 +46,7 @@ class CategoriesController extends Controller
         $category->pid = $request->pid?$request->pid:0;
         $category->sort = $request->sort;
         $category->save();
-        return redirect()->route('categories.show', $category->id);
+        return redirect()->route('categories.index');
     }
     /**
      * Display the specified resource.
@@ -96,7 +96,7 @@ class CategoriesController extends Controller
         $category->pid = $request->input('pid');
         $category->sort = $request->input('sort');
         $category->save();
-        return redirect()->route('categories.show', $category->id);
+        return redirect()->route('categories.index');
     }
     /**
      * Remove the specified resource from storage.

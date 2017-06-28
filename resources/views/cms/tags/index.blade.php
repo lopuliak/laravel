@@ -1,57 +1,49 @@
 @extends('cms.layouts.default')
 
 @section('content')
-
-    <div class="modal fade" id="deleteModal" tabindex="-3" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="deleteModalLabel">Delete Tag</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure want to delete this tag?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <a id="deleteBtn" type="button" class="btn btn-warning" href="#">Confirm Delete</a>
-                </div>
-            </div>
+<div class="col-md-12">
+			<a href="{!! route('tags.create') !!}" class="btn btn-xs btn-success pull-right"><i class="material-icons">add</i>Add tag</a>
+	<div class="card">
+    <div class="card-header" data-background-color="purple">
+    	<h4 class="title">Tags</h4>
+    </div>
+    @if($tags->count() === 0)
+      <div class="card-content table-responsive">
+        <div class="alert alert-warning text-center">
+          <b>No tags found</b>
         </div>
+      </div>
+    @else
+    <div class="card-content table-responsive">
+      <table class="table">
+        <thead class="text-primary">
+          <tr>
+            <th>Tag name</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($tags as $tag)
+              <tr>
+                  <td><a href="{!! route('tags.edit', [$tag->id]) !!}">{!! $tag->name !!}</a></td>
+                  <td class="text-primary">
+        						<form class="pull-right" method="post" action="{!! url('tags/'.$tag->id) !!}">
+        	                        {!! csrf_field() !!}
+        	                        {!! method_field('DELETE') !!}
+        							<a type="button" rel="tooltip" title="" class="del-article btn btn-danger btn-simple btn-xs pull-right" data-original-title="Delete tag">
+        								<i class="material-icons">close</i>
+        							</a>
+        						</form>
+        						<a href="{!!  route('tags.edit', [$tag->id])  !!}" type="button" rel="tooltip" title="" class="btn btn-primary btn-simple btn-xs pull-right" data-original-title="Edit tag">
+        							<i class="material-icons">edit</i>
+        						</a>
+        					</td>
+              </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
-
-    <div class="row">
-        <a class="btn btn-primary pull-right" href="{!! route('tags.create') !!}">Add New</a>
-        <h1 class="page-header">Tags</h1>
-    </div>
-
-    <div class="row">
-
-        @if($tags->count() === 0)
-            <div class="well text-center">No tags found.</div>
-        @else
-            <table class="table table-striped">
-                <thead>
-                    <th>Tag Name</th>
-                    <th width="200px" class="text-right">Actions</th>
-                </thead>
-                <tbody>
-
-                @foreach($tags as $tag)
-                    <tr>
-                        <td><a href="{!! route('tags.edit', [$tag->id]) !!}">{!! $tag->name !!}</a></td>
-                        <td class="text-right">
-                            <form method="post" action="{!! url('tags/'.$tag->id) !!}">
-                                {!! csrf_field() !!}
-                                {!! method_field('DELETE') !!}
-                                <button class="delete-btn btn btn-xs btn-danger pull-right" type="submit"><i class="fa fa-trash"></i> Delete</button>
-                            </form>
-                            <a class="btn btn-xs btn-default pull-right raw-margin-right-8" href="{!! route('tags.edit', [$tag->id]) !!}"><i class="fa fa-pencil"></i> Edit</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        @endif
-    </div>
-@endsection
+    @endif
+  </div>
+</div>
+@stop

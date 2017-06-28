@@ -7,7 +7,6 @@
 		<div class="card-content">
 	        <div class="col-md-8">
 	            <p class="lead">{!! $article->content !!}</p>
-	            <hr>
 	        </div>
 	        <div class="col-md-4">
 	            <div class="well">
